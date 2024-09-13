@@ -21,16 +21,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Get Closed GHAS Alerts
+      - name: Update PR with comment of GHAS alerts
         id: ghas-alerts
-        uses: your-username/ghas-alerts-action@v1
+        uses: gitstua/ghas-alerts-action@main
         with:
           pr-number: ${{ github.event.pull_request.number }}
           repo-name: ${{ github.repository }}
-          gh-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Display Closed GHAS Alerts
-        run: echo "Closed GHAS Alerts: ${{ steps.ghas-alerts.outputs.closed-alerts }}"
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 ```
 
 ## Inputs
