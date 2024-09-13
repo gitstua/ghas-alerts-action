@@ -45,8 +45,11 @@ jobs:
 1. Create a `.env` file in the root of the project with the following content:
 ```sh
 GH_TOKEN=
+PR_NUMBER=18
+REPO_NAME=gitstua/demorepo12345
 ```
 Set the token to a PAT token with permissions to read alerts and write to pull requests.
+Set the PR_NUMBER to the number of a PR in the REPO_NAME repository.
 
 2. Install the dependencies:
 ```sh
@@ -55,7 +58,7 @@ node install
 
 3. Tun a test against a repo with the following command format:
 ```sh
-node src/index.js 18 "gitstua-labs/08-bank-demo"
+node index.js
 ```
 
 ## License

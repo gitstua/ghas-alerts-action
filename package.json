@@ -2,9 +2,11 @@
   "name": "ghas-alerts-action",
   "version": "1.0.0",
   "description": "GitHub Action to add closed GHAS alerts to PR",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"No tests specified\" && exit 0"
+    "build": "ncc build index.js --out dist",
+    "lint": "eslint index.js",
+    "test": "eslint index.js && jest"
   },
   "author": "Stuart Eggerton",
   "license": "MIT",
