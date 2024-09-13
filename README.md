@@ -43,6 +43,23 @@ jobs:
 
 - `closed-alerts`: A JSON array of the closed GHAS alerts.
 
+## Development of this custom Action
+1. Create a `.env` file in the root of the project with the following content:
+```sh
+GH_TOKEN=
+```
+Set the token to a PAT token with permissions to read alerts and write to pull requests.
+
+2. Install the dependencies:
+```sh
+node install
+```
+
+3. Tun a test against a repo with the following command format:
+```sh
+node src/index.js 18 "gitstua-labs/08-bank-demo"
+```
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
