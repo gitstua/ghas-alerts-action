@@ -4,6 +4,8 @@ const {
   addCommentToPR
 } = require('./utils');
 
+const core = require('@actions/core');
+
 async function run(prNumber, repoName, ghToken) {
   try {
     if (!prNumber) {
@@ -59,12 +61,21 @@ async function run(prNumber, repoName, ghToken) {
 // Load environment variables from .env file (for Development)
 require('dotenv').config();
 
-// Access command-line arguments
-const args = process.argv.slice(2); // Skip the first two default arguments
+let prNumber = process.env.PR_NUMBER;
+let repoName = process.env.REPO_NAME;
 
-// Extract parameters
-const prNumber = args[0];
-const repoName = args[1];
+// If the environment variables are not set, then try to get them from the inputs
+if (!prNumber || !repoName) {
+  try{
+    prNumber = core.getInput('prNumber');
+    repoName = core.getInput('repoName');
+ }
+ catch (error) {
+   console.error('Error:', error.message);
+   process.exit(1);
+ } 
+}
+
 const ghToken = process.env.GH_TOKEN;
 
 console.log(`Pull Request Number: ${prNumber}`);
