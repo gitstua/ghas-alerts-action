@@ -1,9 +1,9 @@
 // (async () => {
-const { Octokit } =  import("@octokit/rest");
-
+  
   // Function to fetch closed GHAS alerts
   // optionally pass fromDate to filter alerts by date
  async function fetchClosedGHASAlerts(prNumber, repoName, fromDate, ghToken) {
+  const { Octokit } = await import("@octokit/rest");
     const [owner, repo] = repoName.split('/');
     const octokit = new Octokit({ auth: ghToken });
 
@@ -29,6 +29,7 @@ const { Octokit } =  import("@octokit/rest");
   }
 
   async function getPreviousPRCloseDate(prNumber, repoName, ghToken) {
+    const { Octokit } = await import("@octokit/rest");
     const [owner, repo] = repoName.split('/');
     const octokit = new Octokit({ auth: ghToken });
 
@@ -54,6 +55,7 @@ const { Octokit } =  import("@octokit/rest");
   }
 
   async function addCommentToPR(prNumber, repoName, comment, ghToken) {
+    const { Octokit } = await import("@octokit/rest");
     const [owner, repo] = repoName.split('/');
     const octokit = new Octokit({ auth: ghToken });
 

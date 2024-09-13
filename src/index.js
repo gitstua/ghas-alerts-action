@@ -17,7 +17,7 @@ async function run(prNumber, repoName, ghToken) {
         throw new Error("Parameter 'ghToken' is required");
     }
 
-    const previousPRCloseDate = getPreviousPRCloseDate(prNumber, repoName, ghToken);
+    const previousPRCloseDate = await getPreviousPRCloseDate(prNumber, repoName, ghToken);
 
     console.log('Previous PR Close Date:', previousPRCloseDate);
 
