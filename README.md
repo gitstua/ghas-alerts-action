@@ -44,7 +44,7 @@ jobs:
 ## Inputs
 
 - `pr-number`: The number of the pull request.
-- `repo-name`: The name of the repository.
+- `repo-name`: The name of the repository including the owner. e.g. `gitstua/demorepo12345`
 - `gh-token`: (Optional) The GitHub token used for authentication. If not provided, the default `GITHUB_TOKEN` secret will be used.
 
 ## Outputs
