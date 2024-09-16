@@ -49,6 +49,8 @@ jobs:
 
 None - will add/update the PR comment with details of the alerts.
 
+![Example of PR Comment with Alerts](example.png)
+
 ## Development of this custom Action
 1. Create a `.env` file in the root of the project with the following content:
 ```sh
