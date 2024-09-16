@@ -39,7 +39,7 @@ jobs:
 
 ## Outputs
 
-- `closed-alerts`: A JSON array of the closed GHAS alerts.
+None - will add/update the PR comment with details of the alerts.
 
 ## Development of this custom Action
 1. Create a `.env` file in the root of the project with the following content:
@@ -67,7 +67,7 @@ This project is licensed under the [MIT License](LICENSE).
 ```
 
 Please note that you need to replace `your-username` in the workflow file with your actual GitHub username or organization name.
-
+```
 
 ### BRIEF
 1. when a pr is APPROVED we want a person to accept the risk of all alerts which have been bypassed
