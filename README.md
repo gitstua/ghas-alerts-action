@@ -2,15 +2,13 @@
 
 This GitHub Action retrieves the GHAS (GitHub Advanced Security) Code Scanning alerts.
 
- The action will fetch the closed GHAS alerts on the main branch and also any on the specified PR and add these as a comment on the PR. If you re-run the action, it will update the existing comment with the latest information.
+ The action will fetch the closed GHAS alerts on the main branch and also any on the specified Pull Request (PR) and add these as a comment on the PR. If you re-run the action, it will update the existing comment with the latest information.
 
-This can be helpful to reenforce to a reviwer of a PR that they are also responsible for any dismissed alerts.
+This can be helpful to re-enforce to a reviewer or approver of a PR that they are also responsible for any dismissed alerts.
 
 > [!WARNING]
-> This Action is provided as an untested sample only and is not officially supported as a product of GitHub. GitHub does not provide support for this Action.
-
-> [!CAUTION]
 > USE AT OWN RISK
+> This Action is provided as an untested sample only and is not officially supported as a product of GitHub. GitHub does not provide support for this Action.
 
 ## Usage
 
@@ -77,5 +75,5 @@ This project is licensed under the [MIT License](LICENSE).
 
 ### Requirements
 1. When a pr is APPROVED we want a person to accept the risk of all alerts which have been bypassed
-2. We will add a comment to the PR with all alerts closed since the last PR was closed (those on the main branch)
-3. We will add a comment to the PR with all alerts closed which were found in a scan on the new branch
+2. We will add/update a comment to the PR with all alerts closed since the last PR was closed (those on the main branch)
+3. We will add/update a comment to the PR with all alerts closed which were found in a scan on the new branch

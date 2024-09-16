@@ -46,7 +46,7 @@ async function run(prNumber, repoName, ghToken) {
     for (let i = 0; i < closedAlerts.length; i++) {
       const alert = closedAlerts[i];
       comment += `* [${alert.html_url}](${alert.html_url})\n`;
-      comment += `  * **Found In:** ${alert.found_in}\n`;
+      comment += `<!--  * **Found In:** ${alert.found_in} --> \n`;
       comment += `  * **Dismissed At:** ${alert.dismissed_at}\n`;
       comment += `  * **Severity:** ${alert.rule.security_severity_level}\n`;
       comment += `  * **Description:** ${alert.rule.description}\n`;
