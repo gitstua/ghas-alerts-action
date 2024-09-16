@@ -9,20 +9,12 @@ const core = require('@actions/core');
 
 async function run(prNumber, repoName, ghToken) {
   try {
-    if (!prNumber) {
-      throw new Error("Parameter 'prNumber' is required");
-    }
-    if (!repoName) {
-      throw new Error("Parameter 'repoName' is required");
-    }
-    if (!ghToken) {
-      throw new Error("Parameter 'ghToken' is required");
+    if (!prNumber || !repoName || !ghToken) {
+      throw new Error("Parameters 'prNumber', 'repoName', and 'ghToken' are required");
     }
 
     const previousPRCloseDate = await getPreviousPRMergeDate(prNumber, repoName, ghToken);
-
     console.log('Previous PR Close Date:', previousPRCloseDate);
-
 
     // get list of alerts dismissed on main (uses previous date to filter)
     const closedAlertsMAIN = await fetchClosedGHASAlerts(repoName, previousPRCloseDate, ghToken);
@@ -31,7 +23,6 @@ async function run(prNumber, repoName, ghToken) {
     //get list of alerts dismissed on this PR (uses PR number to filter)
     const closedAlertsPR = await fetchClosedGHASAlertsForPR(prNumber, repoName, ghToken);
     console.log('Closed GHAS Alerts in PR:', closedAlertsPR);
-
 
      // Combine all the above into one list closedAlerts
     const closedAlerts = (closedAlertsMAIN || []).concat(closedAlertsPR || []);
@@ -54,21 +45,14 @@ async function run(prNumber, repoName, ghToken) {
       comment += `  * **Dismissed Reason:** ${alert.dismissed_reason}\n`;
       comment += `  * **Dismissed Comment:** ${alert.dismissed_comment}\n`;
     }
-
     console.log('Comment:', comment);
-
     await addCommentToPR(prNumber, repoName, comment, ghToken);
-
 
   } catch (error) {
     console.error('Error:', error.message);
     process.exit(1);
   }
 }
-
-// Get inputs from the workflow
-// const prNumber = process.env.PR_NUMBER;
-// const repoName = process.env.REPO_NAME;
 
 // Load environment variables from .env file (for Development)
 require('dotenv').config();
@@ -89,17 +73,10 @@ if (!prNumber || !repoName) {
 }
 
 const ghToken = process.env.GH_TOKEN;
-
-// if ghToken is null, then try to get it from GITHUB_TOKEN environment variable
-
-
-
 console.log(`Pull Request Number: ${prNumber}`);
 console.log(`Repository Name: ${repoName}`);
 
 // if ghToken is not provided the throw error
-if (!ghToken) {
-  throw new Error("Parameter 'ghToken' is required to be set as an environment variable named GH_TOKEN");
-}
+if (!ghToken) {  throw new Error("Parameter 'ghToken' is required to be set as an environment variable named GH_TOKEN");}
 
 run(prNumber, repoName, ghToken);
