@@ -74,12 +74,8 @@ node index.js
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-```
 
-Please note that you need to replace `your-username` in the workflow file with your actual GitHub username or organization name.
-```
-
-### BRIEF
-1. when a pr is APPROVED we want a person to accept the risk of all alerts which have been bypassed
-2. we will add a comment to the PR with all alerts closed since the last PR was closed (those on the main branch)
-3. we will add a comment to the PR with all alerts closed which were found in a scan on the new branch
+### Requirements
+1. When a pr is APPROVED we want a person to accept the risk of all alerts which have been bypassed
+2. We will add a comment to the PR with all alerts closed since the last PR was closed (those on the main branch)
+3. We will add a comment to the PR with all alerts closed which were found in a scan on the new branch
