@@ -1,5 +1,6 @@
 const {
   fetchClosedGHASAlerts,
+  fetchClosedGHASAlertsForPR,
   getPreviousPRMergeDate,
   addCommentToPR
 } = require('./utils');
@@ -22,8 +23,18 @@ async function run(prNumber, repoName, ghToken) {
 
     console.log('Previous PR Close Date:', previousPRCloseDate);
 
-    const closedAlerts = await fetchClosedGHASAlerts(prNumber, repoName, previousPRCloseDate, ghToken);
-    console.log('Closed GHAS Alerts:', closedAlerts);
+
+    // get list of alerts dismissed on main (uses previous date to filter)
+    const closedAlertsMAIN = await fetchClosedGHASAlerts(repoName, previousPRCloseDate, ghToken);
+    console.log('Closed GHAS Alerts on MAIN:', closedAlertsMAIN);
+
+    //get list of alerts dismissed on this PR (uses PR number to filter)
+    const closedAlertsPR = await fetchClosedGHASAlertsForPR(prNumber, repoName, ghToken);
+    console.log('Closed GHAS Alerts in PR:', closedAlertsPR);
+
+
+     // Combine all the above into one list closedAlerts
+    const closedAlerts = (closedAlertsMAIN || []).concat(closedAlertsPR || []);
 
     // read CAUTION_MESSAGE from env variable and default to a generic message if not set
     let caution_message = process.env.CAUTION_MESSAGE || 'BY APPROVING THIS PR YOU ARE ACKNOWLEDGING THAT YOU ARE APPROVING THE ANY SECURITY ALERTS BEING DISMISSED INCLUDING:';
@@ -34,7 +45,8 @@ async function run(prNumber, repoName, ghToken) {
     comment += '## BYPASSED Alerts\n\n';
     for (let i = 0; i < closedAlerts.length; i++) {
       const alert = closedAlerts[i];
-      comment += `* [${alert.url}](${alert.url})\n`;
+      comment += `* [${alert.html_url}](${alert.html_url})\n`;
+      comment += `  * **Found In:** ${alert.found_in}\n`;
       comment += `  * **Dismissed At:** ${alert.dismissed_at}\n`;
       comment += `  * **Severity:** ${alert.rule.security_severity_level}\n`;
       comment += `  * **Description:** ${alert.rule.description}\n`;
@@ -77,6 +89,10 @@ if (!prNumber || !repoName) {
 }
 
 const ghToken = process.env.GH_TOKEN;
+
+// if ghToken is null, then try to get it from GITHUB_TOKEN environment variable
+
+
 
 console.log(`Pull Request Number: ${prNumber}`);
 console.log(`Repository Name: ${repoName}`);
