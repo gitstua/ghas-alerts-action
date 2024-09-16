@@ -54,7 +54,6 @@ async function fetchClosedGHASAlertsForPR(prNumber, repoName, ghToken) {
   const octokit = new Octokit({ auth: ghToken });
 
   try {
-
     var theRef = `refs/pull/${prNumber}/merge`;
     console.log('theRef:', theRef);
 
@@ -62,9 +61,8 @@ async function fetchClosedGHASAlertsForPR(prNumber, repoName, ghToken) {
       const { data: alerts } = await octokit.rest.codeScanning.listAlertsForRepo({
         owner,
         repo,
-        ref: theRef
-
-        // , state: 'closed'        
+        ref: theRef,
+        state: 'closed'        
       });
 
       // add a first column to alerts named found_in which is set to the PR number
