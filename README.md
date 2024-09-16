@@ -1,10 +1,20 @@
 # GHAS Alerts Action
 
-This GitHub Action retrieves the GHAS (GitHub Advanced Security) alerts that have been closed prior to a specific pull request (PR).
+This GitHub Action retrieves the GHAS (GitHub Advanced Security) Code Scanning alerts.
+
+ The action will fetch the closed GHAS alerts on the main branch and also any on the specified PR and add these as a comment on the PR. If you re-run the action, it will update the existing comment with the latest information.
+
+This can be helpful to reenforce to a reviwer of a PR that they are also responsible for any dismissed alerts.
+
+> [!WARNING]
+> This Action is provided as an untested sample only and is not officially supported as a product of GitHub. GitHub does not provide support for this Action.
+
+> [!CAUTION]
+> USE AT OWN RISK
 
 ## Usage
 
-To use this action, you need to provide the PR number and the repository name as inputs. The action will then fetch and output the closed GHAS alerts.
+To use this action, you need to provide the PR number and the repository name as inputs. 
 
 ```yaml
 name: GHAS Alerts
